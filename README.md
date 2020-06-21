@@ -1,2 +1,2 @@
-# face_mask_detection
+# Face Mask Detection
 Face mask detection in PyTorch.
