@@ -1,4 +1,4 @@
-# Reference: "https://stackoverflow.com/questions/38511444/python-download-files-from-google-drive-using-url"
+# Reference: https://stackoverflow.com/questions/38511444/python-download-files-from-google-drive-using-url
 
 import requests
 
