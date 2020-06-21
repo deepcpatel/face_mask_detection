@@ -7,6 +7,6 @@ Face mask detection in PyTorch.
 
 ![Demo](assets/Demo_2_compressed.gif)
 
-# Reference
+# References
 **[1]**. [JadHADDAD92's Face Mask Detection project](https://github.com/JadHADDAD92/covid-mask-detector/).<br/>
 **[2]**. Z. Wang, et. al. Masked Face Recognition Dataset and Application. arXiv preprint arXiv:2003.09093, 2020.
