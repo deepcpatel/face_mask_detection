@@ -12,7 +12,7 @@ class face_mask_detector_webcam():
 
         self.face_det_proto = os.path.join(model_dir, "OpenCV_Face_Detector", "deploy.prototxt.txt")                        # OpenCV Face Detector Prototext
         self.face_det_model = os.path.join(model_dir, "OpenCV_Face_Detector", "res10_300x300_ssd_iter_140000.caffemodel")   # OpenCV Face Detector Trained Model
-        self.mask_det_model = os.path.join(model_dir, "Mask_Detection", "mask_predictor_5.pth.tar")  # Path to Mask Detector Trained model
+        self.mask_det_model = os.path.join(model_dir, "Mask_Detection", "mask_predictor_4.pth.tar")  # Path to Mask Detector Trained model
         self.img_resize_size = (100, 100)   # Image Resize Size
         self.string = {0: ('No Mask', (10, 0, 255)), 1: ('Masked Face', (10, 255, 0))}  # Output strings. Labels -> 0: Unmasked, 1: Masked
         self.font = cv2.FONT_HERSHEY_SIMPLEX

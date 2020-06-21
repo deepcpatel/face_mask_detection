@@ -20,7 +20,7 @@ class model_training():
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         # ADAM Parameters
-        self.adam_lr = 1e-5
+        self.adam_lr = 1e-4
         self.adam_betas = (0.9, 0.999)
         self.adam_eps = 1e-8
         self.optimizer = None   # Will store Optimizer
