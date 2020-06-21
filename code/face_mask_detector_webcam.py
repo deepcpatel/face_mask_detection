@@ -30,7 +30,6 @@ class face_mask_detector_webcam():
 
     def load_ml_model(self, path):       # Loads trained classifier model
         checkpoint = torch.load(path, map_location=self.device)
-        # self.ml_model.load_state_dict(checkpoint['state_dict'])
         self.ml_model.load_state_dict(checkpoint['state_dict'], strict=False)
         self.ml_model.eval()
 
