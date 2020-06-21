@@ -1,3 +1,5 @@
+# Reference: "https://stackoverflow.com/questions/38511444/python-download-files-from-google-drive-using-url"
+
 import requests
 
 def download_file_from_google_drive(id, destination):
@@ -28,7 +30,6 @@ def download_file_from_google_drive(id, destination):
         response = session.get(URL, params = params, stream = True)
 
     save_response_content(response, destination)    
-
 
 if __name__ == "__main__":
     import sys
