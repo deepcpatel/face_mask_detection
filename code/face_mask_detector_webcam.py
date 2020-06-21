@@ -51,9 +51,9 @@ class face_mask_detector_webcam():
             faces.append(np.array([startX, startY, endX-startX, endY-startY]))
         return faces
 
-    def detect_mask(self):          # Fetches Webcam frames and detects mask in that
-        cam = cv2.VideoCapture(2)   # Capturing from camera
-        print("Press 'Esc' to quit.")
+    def detect_mask(self):              # Fetches Webcam frames and detects mask in that
+        cam = cv2.VideoCapture(0)       # Capturing from camera. Change camera here to capture form other device
+        print("Press 'Esc' to quit.")   # Number of available cameras in linux could be found using 'ls -ltrh /dev/video*'
 
         while True:
             _, img = cam.read()
