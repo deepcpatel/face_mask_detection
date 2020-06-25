@@ -1,7 +1,7 @@
 # Face Mask Detection
 Face mask detection in PyTorch.
 
-**Platform**: PyTorch 1.1.0, OpenCV 4.1.1, Ubuntu 18.04.
+**Platform and Libraries**: PyTorch 1.5.1, OpenCV 4.1.2, h5py 2.10.0, Ubuntu 18.04.
 
 **Dataset**: [RMFD dataset](https://github.com/X-zhangyang/Real-World-Masked-Face-Dataset) [2].
 
