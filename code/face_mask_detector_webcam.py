@@ -58,35 +58,38 @@ class face_mask_detector_webcam():
             _, img = cam.read()
             faces = self.detect_face(img)   # Detecting Face
 
-            for face in faces:
-                xStart, yStart, width, height = face
+            if faces:
+                # Lambda function to preprocess face images stored in faces  
+                resize_faces = lambda face : np.expand_dims(cv2.cvtColor(cv2.resize(img[max(face[1], 0):max(face[1], 0)+face[3], max(face[0], 0):max(face[0], 0)+face[2]], self.img_resize_size), cv2.COLOR_BGR2RGB).astype(np.float32), axis=0)
 
-                # clamp coordinates that are outside of the image
-                xStart, yStart = max(xStart, 0), max(yStart, 0)
-                
-                # predict mask label on extracted face
-                faceImg = img[yStart:yStart+height, xStart:xStart+width]
+                # Making list of resized faces using lambda
+                processed_faces = np.concatenate(list(map(resize_faces, faces)), axis=0)          
 
-                # Preprocessing
-                faceImg = cv2.cvtColor(cv2.resize(faceImg, self.img_resize_size), cv2.COLOR_BGR2RGB).astype(np.float32)
-                faceImgTensor = torch.tensor(faceImg, dtype=torch.float32).permute(2, 0, 1).unsqueeze(0)   # NCHW format
-                
-                ml_pred = self.ml_model(faceImgTensor)
-                
-                out = torch.argmax(ml_pred, dim=1).data.numpy()             # Network output
-                mask_status, color = self.string[out.astype(np.int32)[0]]   # Selecting label
+                # Making PyTorch Tensor of faces
+                tensor_faces = torch.tensor(processed_faces).permute(0, 3, 1, 2)    # Out Shape: (N x C x H x W)
 
-                # Writing information on the frame
-                cv2.rectangle(img, (xStart, yStart), (xStart + width, yStart + height), (126, 65, 64), thickness=2)
-            
-                # Center text according to the face frame
-                textSize = cv2.getTextSize(mask_status, self.font, 1, 2)[0]
-                textX = xStart + width // 2 - textSize[0] // 2
+                # Prediction and classification
+                ml_pred = self.ml_model(tensor_faces)   # Out Shape: (N x 2)
+                label = torch.argmax(ml_pred, dim=1).data.numpy().astype(np.int32)   # Network output
                 
-                # draw prediction label
-                cv2.putText(img, mask_status, (textX, yStart-20), self.font, 1, color, 2)
-            
-            cv2.imshow('my webcam', img)
+                # Drawing bounding boxes and information on the image
+                for i in range(len(faces)):
+                    xStart, yStart, width, height = faces[i]    # Extracting coordinates
+                    
+                    # clamp coordinates that are outside of the image
+                    xStart, yStart = max(xStart, 0), max(yStart, 0)
+
+                    mask_status, color = self.string[label[i]]          # Selecting label
+                    cv2.rectangle(img, (xStart, yStart), (xStart + width, yStart + height), (126, 65, 64), thickness=2)
+
+                    # Center text according to the face frame
+                    textSize = cv2.getTextSize(mask_status, self.font, 1, 2)[0]
+                    textX = xStart + width // 2 - textSize[0] // 2
+                
+                    # Draw prediction label
+                    cv2.putText(img, mask_status, (textX, yStart-20), self.font, 1, color, 2)
+
+            cv2.imshow('my webcam', img)    # Showing the final frames
 
             if cv2.waitKey(1) == 27: 
                 break  # esc to quit
