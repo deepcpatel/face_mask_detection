@@ -4,7 +4,7 @@ class mask_detector(nn.Module):  # Convolution Neural Network model for Face Mas
     def __init__(self):
         super(mask_detector, self).__init__()
 
-        # Note: The following model is the modified version of that from the work of GitHub user JadHADDAD92 [Link: https://github.com/JadHADDAD92/covid-mask-detector/]
+        # Note: The following model is referenced from the work of GitHub user JadHADDAD92 [Link: https://github.com/JadHADDAD92/covid-mask-detector/].
 
         self.convLayer1 = nn.Sequential(nn.Conv2d(3, 32, kernel_size=(3, 3), padding=(1, 1)), nn.ReLU(), nn.MaxPool2d(kernel_size=(2, 2)))
         self.convLayer2 = nn.Sequential(nn.Conv2d(32, 64, kernel_size=(3, 3), padding=(1, 1)), nn.ReLU(), nn.MaxPool2d(kernel_size=(2, 2)))
