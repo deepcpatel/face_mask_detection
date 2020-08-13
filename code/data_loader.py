@@ -14,7 +14,7 @@ class object_data():
         self.data_dir = data_dir                    # Directory of the data           
         self.batch_size = batch_size                # Batch size
         self.img_resize_size = img_resize_size      # Size of the image after resize -> (width, height)
-        self.test_data_size = 500                   # Reserves this much number of sampled from each class for testing
+        self.test_data_size = 500                   # Reserves this much number of samples from each class for testing
         
         self.test_X = None                          # Stores test data
         self.test_Y = None                          # Stores test labels
